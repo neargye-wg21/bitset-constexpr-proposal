@@ -533,63 +533,6 @@ constexpr bitset<_Bits> operator^(const bitset<_Bits>& _Left, const bitset<_Bits
     return _Ans;
 }
 
-template <class _Elem, class _Tr, size_t _Bits>
-std::basic_ostream<_Elem, _Tr>& operator<<(std::basic_ostream<_Elem, _Tr>& _Ostr, const bitset<_Bits>& _Right) {
-    using _Ctype             = typename std::basic_ostream<_Elem, _Tr>::_Ctype;
-    const _Ctype& _Ctype_fac = std::use_facet<_Ctype>(_Ostr.getloc());
-    const _Elem _Elem0       = _Ctype_fac.widen('0');
-    const _Elem _Elem1       = _Ctype_fac.widen('1');
-
-    return _Ostr << _Right.to_string<_Elem, _Tr, std::allocator<_Elem>>(_Elem0, _Elem1);
-}
-
-template <class _Elem, class _Tr, size_t _Bits>
-std::basic_istream<_Elem, _Tr>& operator>>(std::basic_istream<_Elem, _Tr>& _Istr, bitset<_Bits>& _Right) {
-    using _Istr_t                    = std::basic_istream<_Elem, _Tr>;
-    using _Ctype                     = typename _Istr_t::_Ctype;
-    const _Ctype& _Ctype_fac         = std::use_facet<_Ctype>(_Istr.getloc());
-    const _Elem _Elem0               = _Ctype_fac.widen('0');
-    const _Elem _Elem1               = _Ctype_fac.widen('1');
-    typename _Istr_t::iostate _State = _Istr_t::goodbit;
-    bool _Changed                    = false;
-    std::string _Str;
-    const typename _Istr_t::sentry _Ok(_Istr);
-
-    if (_Ok) {  // valid stream, extract elements
-        _TRY_IO_BEGIN
-        typename _Tr::int_type _Meta = _Istr.rdbuf()->sgetc();
-        for (size_t _Count = _Right.size(); 0 < _Count; _Meta = _Istr.rdbuf()->snextc(), (void)--_Count) {
-            // test _Meta
-            _Elem _Char;
-            if (_Tr::eq_int_type(_Tr::eof(), _Meta)) {  // end of file, quit
-                _State |= _Istr_t::eofbit;
-                break;
-            } else if ((_Char = _Tr::to_char_type(_Meta)) != _Elem0 && _Char != _Elem1) {
-                break;                                    // invalid element
-            } else if (_Str.max_size() <= _Str.size()) {  // no room in string, give up (unlikely)
-                _State |= _Istr_t::failbit;
-                break;
-            } else {  // valid, append '0' or '1'
-                _Str.push_back('0' + (_Char == _Elem1));
-                _Changed = true;
-            }
-        }
-        _CATCH_IO_(_Istr_t, _Istr)
-    }
-
-    constexpr bool _Has_bits = _Bits > 0;
-
-    if constexpr (_Has_bits) {
-        if (!_Changed) {
-            _State |= _Istr_t::failbit;
-        }
-    }
-
-    _Istr.setstate(_State);
-    _Right = bitset<_Bits>(_Str);  // convert string and store
-    return _Istr;
-}
-
 }  // namespace nstd
 
 template <size_t _Bits>

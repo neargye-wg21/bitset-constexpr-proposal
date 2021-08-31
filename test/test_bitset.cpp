@@ -106,20 +106,6 @@ TEST_CASE("basic") {
     std::hash<nstd::bitset<5>> hasher;
     CHECK(hasher(x54) == hasher(x54));
 
-    // test I/O
-    std::istringstream ins("1 0101 11000");
-    std::ostringstream outs;
-    ins >> x50;
-    CHECK(x50.to_ulong() == 0x01);
-    outs << x50 << ' ';
-    ins >> x50;
-    CHECK(x50.to_ulong() == 0x05);
-    outs << x50 << ' ';
-    ins >> x50;
-    CHECK(x50.to_ulong() == 0x18);
-    outs << x50;
-    CHECK(outs.str() == "00001 00101 11000");
-
     // test larger bitset
     nstd::bitset<153> x153a;
     nstd::bitset<153> x153b;
