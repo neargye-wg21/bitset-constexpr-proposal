@@ -25,8 +25,9 @@
 
 // Changes:
 // * added constexpr modifiers to all functions, except iosteam operators
-// * memset, memcmp
-// reinterpret_cast in bitset::count
+// * memset in bitset::set/bitset::reset
+// * memcmp in bitset::operator==
+// * reinterpret_cast in bitset::count
 
 #pragma once
 
