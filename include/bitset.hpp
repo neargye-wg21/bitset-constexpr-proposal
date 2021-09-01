@@ -33,6 +33,7 @@
 
 #include <bit>
 #include <cassert>
+#include <climits>
 #include <functional>
 #include <iostream>
 #include <string>
