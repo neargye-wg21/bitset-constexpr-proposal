@@ -36,9 +36,13 @@ TEST_CASE("basic") {
 
     constexpr nstd::bitset<5> x50;
     constexpr nstd::bitset<5> x51(0xf);
-    constexpr nstd::bitset<5> x52 = []() {
+    constexpr nstd::bitset<5> x52 = []() constexpr {
+#if defined(__cpp_lib_constexpr_string) && __cpp_lib_constexpr_string >= 201907L
         std::string sx52("xx10101ab");
         return nstd::bitset<5>(sx52, 2, 5);
+#else
+        return nstd::bitset<5>("10101", 5);
+#endif  // __cpp_lib_constexpr_string
     }();
     constexpr nstd::bitset<5> x53(x52);
 
@@ -74,10 +78,12 @@ TEST_CASE("basic") {
     // CHECK(x50.to_ulong() == 0x1b);
 
     // CHECK(x53.to_string() == "10101");
-    static_assert([&]() {
+#if defined(__cpp_lib_constexpr_string) && __cpp_lib_constexpr_string >= 201907L
+    static_assert([&]() constexpr {
         std::string str = x53.to_string<char, std::char_traits<char>, std::allocator<char>>();
         return std::equal(str.begin(), str.end(), "10101");
     }());
+#endif  // __cpp_lib_constexpr_string
 
     // CHECK(x50.count() == 4);
     // CHECK(x52.count() == 3);
