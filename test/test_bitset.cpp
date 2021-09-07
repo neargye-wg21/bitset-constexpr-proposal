@@ -34,7 +34,7 @@ TEST_CASE("basic") {
 
     nstd::bitset<5> x50;
     nstd::bitset<5> x51(0xf);
-    nstd::bitset<5> x52("10101", 5);
+    nstd::bitset<5> x52(std::string("xx10101ab"), 2, 5);
     nstd::bitset<5> x53(x52);
 
     CHECK(x50.to_ulong() == 0x00);
