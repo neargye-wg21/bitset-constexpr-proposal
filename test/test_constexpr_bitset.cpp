@@ -52,13 +52,13 @@ TEST_CASE("basic") {
     static_assert(x53.to_ulong() == 0x15);
 
     //// test arithmetic
-    static_assert([left = x50, right = x51]() mutable { return left |= right;}() == 0x0f);
-    static_assert([left = nstd::bitset<5>(0x0f), right = x52]() mutable { return left ^= right;}() == 0x1a);
-    static_assert([left = nstd::bitset<5>(0x1a), right = x51]() mutable { return left &= right;}() == 0x0a);
-    static_assert([left = nstd::bitset<5>(0x0a), right = 2]() mutable { return left <<= right;}() == 0x08);
-    static_assert([left = nstd::bitset<5>(0x08), right = 3]() mutable { return left >>= right;}() == 0x01);
+    static_assert([left = nstd::bitset<5>(0x0f), right = nstd::bitset<5>(0xf)]() mutable { return left |= right; }() == 0x0f);
+    static_assert([left = nstd::bitset<5>(0x0f), right = nstd::bitset<5>(0x15)]() mutable { return left ^= right; }() == 0x1a);
+    static_assert([left = nstd::bitset<5>(0x1a), right = nstd::bitset<5>(0xf)]() mutable { return left &= right; }() == 0x0a);
+    static_assert([left = nstd::bitset<5>(0x0a), right = 2]() mutable { return left <<= right; }() == 0x08);
+    static_assert([left = nstd::bitset<5>(0x08), right = 3]() mutable { return left >>= right; }() == 0x01);
     static_assert([left = nstd::bitset<5>(0x01)]() mutable { return left.set(2); }() == 0x05);
-    static_assert([left = nstd::bitset<5>(0x05)]() mutable { return left.set(0,0); }() == 0x04);
+    static_assert([left = nstd::bitset<5>(0x05)]() mutable { return left.set(0, 0); }() == 0x04);
     static_assert([left = nstd::bitset<5>(0x04)]() mutable { return left.set(); }() == 0x1f);
     static_assert([left = nstd::bitset<5>(0x1f)]() mutable { return left.reset(3); }() == 0x17);
     static_assert([left = nstd::bitset<5>(0x17)]() mutable { return left.reset(); }() == 0x00);
@@ -72,23 +72,23 @@ TEST_CASE("basic") {
     }());
 #endif  // __cpp_lib_constexpr_string
 
-    constexpr nstd::bitset<5> x50_(0x1b);
+    constexpr nstd::bitset<5> x54(0x1b);
 
-    static_assert([left = x50_]() mutable { return left.count(); }() == 4);
+    static_assert([left = x54]() mutable { return left.count(); }() == 4);
     static_assert([left = x52]() mutable { return left.count(); }() == 3);
-    static_assert([left = x50_]() mutable { return left.size(); }() == 5);
+    static_assert([left = x54]() mutable { return left.size(); }() == 5);
     static_assert([left = x51]() mutable { return left.size(); }() == 5);
-    static_assert([left = x50_, right = x50_]() mutable { return left == right; }());
-    static_assert([left = x50_, right = x51]() mutable { return left != right; }());
-    static_assert([left = x50_]() mutable { return left.test(1); }());
-    static_assert([left = x50_]() mutable { return !left.test(2); }());
-    static_assert([left = x50_]() mutable { return left.any(); }());
-    static_assert([left = x50_]() mutable { return !left.none(); }());
-    static_assert([left = x50_]() mutable {
+    static_assert([left = x54, right = x54]() mutable { return left == right; }());
+    static_assert([left = x54, right = x51]() mutable { return left != right; }());
+    static_assert([left = x54]() mutable { return left.test(1); }());
+    static_assert([left = x54]() mutable { return !left.test(2); }());
+    static_assert([left = x54]() mutable { return left.any(); }());
+    static_assert([left = x54]() mutable { return !left.none(); }());
+    static_assert([left = x54]() mutable {
         left.reset();
         return !left.any();
     }());
-    static_assert([left = x50_]() mutable {
+    static_assert([left = x54]() mutable {
         left.reset();
         return left.none();
     }());
@@ -104,12 +104,12 @@ TEST_CASE("basic") {
     static_assert((x51 | x52) == bx1f);
     static_assert((x51 ^ x52) == bx1a);
 
-    constexpr nstd::bitset<5> x54("11111", 5);
+    constexpr nstd::bitset<5> x55("11111", 5);
     static_assert(!x51.all());
-    static_assert(x54.all());
-    static_assert((int)x54.to_ullong() == 0x1f);
+    static_assert(x55.all());
+    static_assert((int)x55.to_ullong() == 0x1f);
 
-    static_assert(std::hash<nstd::bitset<5>>{}(x54) == std::hash<nstd::bitset<5>>{}(x54));
+    static_assert(std::hash<nstd::bitset<5>>{}(x55) == std::hash<nstd::bitset<5>>{}(x55));
 
     //// test larger bitset
     constexpr nstd::bitset<153> x153a = []() { return (nstd::bitset<153>{}.set(100) >>= 99) <<= 1; }();
