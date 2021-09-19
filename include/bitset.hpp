@@ -541,9 +541,8 @@ struct std::hash<nstd::bitset<_Bits>> {
     constexpr size_t operator()(const nstd::bitset<_Bits>& _BitSet) const noexcept {
         // EXAMPLE ONLY
         std::size_t result = 0;
-        const size_t prime = 31;
         for (size_t i = 0; i <= _BitSet._Words; ++i) {
-            result = _BitSet._Array[i] + (result * prime);
+            result ^= _BitSet._Array[i];
         }
         return result;
     }
