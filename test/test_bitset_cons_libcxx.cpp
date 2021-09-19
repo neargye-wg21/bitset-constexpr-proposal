@@ -102,19 +102,6 @@ void test_string_ctor() {
     }
 }
 
-struct Nonsense {
-    //Nonsense(char i) {}
-    virtual ~Nonsense() {}
-};
-
-void test_for_non_eager_instantiation() {
-    // Ensure we don't accidentally instantiate `std::basic_string<Nonsense>`
-    // since it may not be well formed and can cause an error in the
-    // non-immediate context.
-    static_assert(!std::is_constructible<nstd::bitset<3>, Nonsense*>::value);
-    static_assert(!std::is_constructible<nstd::bitset<3>, Nonsense*, size_t, Nonsense&, Nonsense&>::value);
-}
-
 TEST_CASE("libcxx_cons_string_ctor") {
     test_string_ctor<0>();
     test_string_ctor<1>();
@@ -125,7 +112,6 @@ TEST_CASE("libcxx_cons_string_ctor") {
     test_string_ctor<64>();
     test_string_ctor<65>();
     test_string_ctor<1000>();
-    test_for_non_eager_instantiation();
 }
 
 template <std::size_t N>
