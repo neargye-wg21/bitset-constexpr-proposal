@@ -43,7 +43,8 @@ TEST_CASE("basic") {
 #else
         return nstd::bitset<5>("10101", 5);
 #endif  // __cpp_lib_constexpr_string
-    }();
+    }
+    ();
     constexpr nstd::bitset<5> x53(x52);
 
     static_assert(x50.to_ulong() == 0x00);

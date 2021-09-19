@@ -252,7 +252,7 @@ class bitset {  // store fixed-length sequence of Boolean elements
 
     constexpr bitset& set() noexcept {  // set all bits true
         for (size_t _Wpos = 0; _Wpos <= _Words; ++_Wpos) {
-            _Array[_Wpos] = 0xFF;
+            _Array[_Wpos] = std::numeric_limits<_Ty>::max();
         }
         // std::memset(&_Array, 0xFF, sizeof(_Array));
 
@@ -541,9 +541,8 @@ struct std::hash<nstd::bitset<_Bits>> {
     constexpr size_t operator()(const nstd::bitset<_Bits>& _BitSet) const noexcept {
         // EXAMPLE ONLY
         std::size_t result = 0;
-        const size_t prime = 31;
         for (size_t i = 0; i <= _BitSet._Words; ++i) {
-            result = _BitSet._Array[i] + (result * prime);
+            result ^= _BitSet._Array[i];
         }
         return result;
     }
