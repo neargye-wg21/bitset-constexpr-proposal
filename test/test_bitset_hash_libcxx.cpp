@@ -31,8 +31,6 @@
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
 
-#include "poisoned_hash_helper.h"
-
 // https://github.com/llvm/llvm-project/tree/main/libcxx/test/std/utilities/template.bitset/bitset.hash
 
 template <std::size_t N>
@@ -57,14 +55,4 @@ TEST_CASE("libcxx_hash_test") {
     test<10>();
     test<100>();
     test<1000>();
-}
-
-TEST_CASE("libcxx_hash_specializations_available") {
-    //test_library_hash_specializations_available();
-    {
-        test_hash_enabled_for_type<nstd::bitset<0> >();
-        test_hash_enabled_for_type<nstd::bitset<1> >();
-        test_hash_enabled_for_type<nstd::bitset<1024> >();
-        test_hash_enabled_for_type<nstd::bitset<100000> >();
-    }
 }
