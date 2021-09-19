@@ -41,7 +41,7 @@ void test_all() {
     v.set();
     CHECK(v.all() == true);
     if (v.size() > 1) {
-        v[N/2] = false;
+        v[N / 2] = false;
         CHECK(v.all() == false);
     }
 }
@@ -66,10 +66,10 @@ void test_any() {
     v.set();
     CHECK(v.any() == (N != 0));
     if (v.size() > 1) {
-        v[N/2] = false;
+        v[N / 2] = false;
         CHECK(v.any() == true);
         v.reset();
-        v[N/2] = true;
+        v[N / 2] = true;
         CHECK(v.any() == true);
     }
 }
@@ -88,11 +88,11 @@ TEST_CASE("libcxx_members_any") {
 
 template <std::size_t N>
 void test_count() {
-    std::vector<nstd::bitset<N> > const cases = get_test_cases<N>();
+    std::vector<nstd::bitset<N>> const cases = get_test_cases<N>();
     for (std::size_t c = 0; c != cases.size(); ++c) {
         const nstd::bitset<N> v = cases[c];
-        std::size_t c1 = v.count();
-        std::size_t c2 = 0;
+        std::size_t c1          = v.count();
+        std::size_t c2          = 0;
         for (std::size_t i = 0; i < v.size(); ++i)
             if (v[i])
                 ++c2;
@@ -114,7 +114,7 @@ TEST_CASE("libcxx_members_count") {
 
 template <std::size_t N>
 void test_flip_all() {
-    std::vector<nstd::bitset<N> > const cases = get_test_cases<N>();
+    std::vector<nstd::bitset<N>> const cases = get_test_cases<N>();
     for (std::size_t c = 0; c != cases.size(); ++c) {
         nstd::bitset<N> v1 = cases[c];
         nstd::bitset<N> v2 = v1;
@@ -138,7 +138,7 @@ TEST_CASE("libcxx_members_flip_all") {
 
 template <std::size_t N>
 void test_flip_one() {
-    std::vector<nstd::bitset<N> > const cases = get_test_cases<N>();
+    std::vector<nstd::bitset<N>> const cases = get_test_cases<N>();
     for (std::size_t c = 0; c != cases.size(); ++c) {
         nstd::bitset<N> v = cases[c];
         if (v.size() > 0) {
@@ -168,29 +168,29 @@ TEST_CASE("libcxx_members_flip_one") {
 
 template <std::size_t N>
 void test_index() {
-    std::vector<nstd::bitset<N> > const cases = get_test_cases<N>();
+    std::vector<nstd::bitset<N>> const cases = get_test_cases<N>();
     for (std::size_t c = 0; c != cases.size(); ++c) {
         nstd::bitset<N> v1 = cases[c];
         if (v1.size() > 0) {
-            CHECK(v1[N/2] == v1.test(N/2));
-            typename nstd::bitset<N>::reference r = v1[N/2];
-            CHECK(r == v1.test(N/2));
-            typename nstd::bitset<N>::reference r2 = v1[N/2];
-            r = r2;
-            CHECK(r == v1.test(N/2));
+            CHECK(v1[N / 2] == v1.test(N / 2));
+            typename nstd::bitset<N>::reference r = v1[N / 2];
+            CHECK(r == v1.test(N / 2));
+            typename nstd::bitset<N>::reference r2 = v1[N / 2];
+            r                                      = r2;
+            CHECK(r == v1.test(N / 2));
             r = false;
             CHECK(r == false);
-            CHECK(v1.test(N/2) == false);
+            CHECK(v1.test(N / 2) == false);
             r = true;
             CHECK(r == true);
-            CHECK(v1.test(N/2) == true);
+            CHECK(v1.test(N / 2) == true);
             bool b = ~r;
             CHECK(r == true);
-            CHECK(v1.test(N/2) == true);
+            CHECK(v1.test(N / 2) == true);
             CHECK(b == false);
             r.flip();
             CHECK(r == false);
-            CHECK(v1.test(N/2) == false);
+            CHECK(v1.test(N / 2) == false);
         }
     }
 }
@@ -209,11 +209,11 @@ TEST_CASE("libcxx_members_index") {
 
 template <std::size_t N>
 void test_index_const() {
-    std::vector<nstd::bitset<N> > const cases = get_test_cases<N>();
+    std::vector<nstd::bitset<N>> const cases = get_test_cases<N>();
     for (std::size_t c = 0; c != cases.size(); ++c) {
         nstd::bitset<N> const v = cases[c];
         if (v.size() > 0) {
-            CHECK(v[N/2] == v.test(N/2));
+            CHECK(v[N / 2] == v.test(N / 2));
         }
     }
 }
@@ -232,9 +232,9 @@ TEST_CASE("libcxx_members_index_const") {
 
 template <std::size_t N>
 void test_left_shift() {
-    std::vector<nstd::bitset<N> > const cases = get_test_cases<N>();
+    std::vector<nstd::bitset<N>> const cases = get_test_cases<N>();
     for (std::size_t c = 0; c != cases.size(); ++c) {
-        for (std::size_t s = 0; s <= N+1; ++s) {
+        for (std::size_t s = 0; s <= N + 1; ++s) {
             nstd::bitset<N> v1 = cases[c];
             nstd::bitset<N> v2 = v1;
             CHECK((v1 <<= s) == (v2 << s));
@@ -256,9 +256,9 @@ TEST_CASE("libcxx_members_left_shift") {
 
 template <std::size_t N>
 void test_left_shift_eq() {
-    std::vector<nstd::bitset<N> > const cases = get_test_cases<N>();
+    std::vector<nstd::bitset<N>> const cases = get_test_cases<N>();
     for (std::size_t c = 0; c != cases.size(); ++c) {
-        for (std::size_t s = 0; s <= N+1; ++s) {
+        for (std::size_t s = 0; s <= N + 1; ++s) {
             nstd::bitset<N> v1 = cases[c];
             nstd::bitset<N> v2 = v1;
             v1 <<= s;
@@ -266,7 +266,7 @@ void test_left_shift_eq() {
                 if (i < s)
                     CHECK(v1[i] == 0);
                 else
-                    CHECK(v1[i] == v2[i-s]);
+                    CHECK(v1[i] == v2[i - s]);
         }
     }
 }
@@ -291,10 +291,10 @@ void test_none() {
     v.set();
     CHECK(v.none() == (N == 0));
     if (v.size() > 1) {
-        v[N/2] = false;
+        v[N / 2] = false;
         CHECK(v.none() == false);
         v.reset();
-        v[N/2] = true;
+        v[N / 2] = true;
         CHECK(v.none() == false);
     }
 }
@@ -313,7 +313,7 @@ TEST_CASE("libcxx_members_none") {
 
 template <std::size_t N>
 void test_not_all() {
-    std::vector<nstd::bitset<N> > const cases = get_test_cases<N>();
+    std::vector<nstd::bitset<N>> const cases = get_test_cases<N>();
     for (std::size_t c = 0; c != cases.size(); ++c) {
         nstd::bitset<N> v1 = cases[c];
         nstd::bitset<N> v2 = ~v1;
@@ -336,7 +336,7 @@ TEST_CASE("libcxx_members_not_all") {
 
 template <std::size_t N>
 void test_op_and_eq() {
-    std::vector<nstd::bitset<N> > const cases = get_test_cases<N>();
+    std::vector<nstd::bitset<N>> const cases = get_test_cases<N>();
     for (std::size_t c1 = 0; c1 != cases.size(); ++c1) {
         for (std::size_t c2 = 0; c2 != cases.size(); ++c2) {
             nstd::bitset<N> v1 = cases[c1];
@@ -363,13 +363,13 @@ TEST_CASE("libcxx_members_op_and_eq") {
 
 template <std::size_t N>
 void test_equality() {
-    std::vector<nstd::bitset<N> > const cases = get_test_cases<N>();
+    std::vector<nstd::bitset<N>> const cases = get_test_cases<N>();
     for (std::size_t c = 0; c != cases.size(); ++c) {
         nstd::bitset<N> const v1 = cases[c];
-        nstd::bitset<N> v2 = v1;
+        nstd::bitset<N> v2       = v1;
         CHECK(v1 == v2);
         if (v1.size() > 0) {
-            v2[N/2].flip();
+            v2[N / 2].flip();
             CHECK(v1 != v2);
         }
     }
@@ -389,7 +389,7 @@ TEST_CASE("libcxx_members_equality") {
 
 template <std::size_t N>
 void test_op_or_eq() {
-    std::vector<nstd::bitset<N> > const cases = get_test_cases<N>();
+    std::vector<nstd::bitset<N>> const cases = get_test_cases<N>();
     for (std::size_t c1 = 0; c1 != cases.size(); ++c1) {
         for (std::size_t c2 = 0; c2 != cases.size(); ++c2) {
             nstd::bitset<N> v1 = cases[c1];
@@ -416,7 +416,7 @@ TEST_CASE("libcxx_members_op_or_eq") {
 
 template <std::size_t N>
 void test_op_xor_eq() {
-    std::vector<nstd::bitset<N> > const cases = get_test_cases<N>();
+    std::vector<nstd::bitset<N>> const cases = get_test_cases<N>();
     for (std::size_t c1 = 0; c1 != cases.size(); ++c1) {
         for (std::size_t c2 = 0; c2 != cases.size(); ++c2) {
             nstd::bitset<N> v1 = cases[c1];
@@ -463,12 +463,12 @@ TEST_CASE("libcxx_members_reset_all") {
 }
 
 #if defined(TEST_COMPILER_C1XX)
-#pragma warning(disable: 6294) // Ill-defined for-loop:  initial condition does not satisfy test.  Loop body not executed.
+#    pragma warning(disable : 6294)  // Ill-defined for-loop:  initial condition does not satisfy test.  Loop body not executed.
 #endif
 
 template <std::size_t N>
 void test_reset_one() {
-    std::vector<nstd::bitset<N> > const cases = get_test_cases<N>();
+    std::vector<nstd::bitset<N>> const cases = get_test_cases<N>();
     for (std::size_t c = 0; c != cases.size(); ++c) {
         for (std::size_t i = 0; i != N; ++i) {
             nstd::bitset<N> v = cases[c];
@@ -492,9 +492,9 @@ TEST_CASE("libcxx_members_reset_one") {
 
 template <std::size_t N>
 void test_right_shift() {
-    std::vector<nstd::bitset<N> > const cases = get_test_cases<N>();
+    std::vector<nstd::bitset<N>> const cases = get_test_cases<N>();
     for (std::size_t c = 0; c != cases.size(); ++c) {
-        for (std::size_t s = 0; s <= N+1; ++s) {
+        for (std::size_t s = 0; s <= N + 1; ++s) {
             nstd::bitset<N> v1 = cases[c];
             nstd::bitset<N> v2 = v1;
             CHECK((v1 >>= s) == (v2 >> s));
@@ -516,9 +516,9 @@ TEST_CASE("libcxx_members_right_shift") {
 
 template <std::size_t N>
 void test_right_shift_eq() {
-    std::vector<nstd::bitset<N> > const cases = get_test_cases<N>();
+    std::vector<nstd::bitset<N>> const cases = get_test_cases<N>();
     for (std::size_t c = 0; c != cases.size(); ++c) {
-        for (std::size_t s = 0; s <= N+1; ++s) {
+        for (std::size_t s = 0; s <= N + 1; ++s) {
             nstd::bitset<N> v1 = cases[c];
             nstd::bitset<N> v2 = v1;
             v1 >>= s;
@@ -566,7 +566,7 @@ TEST_CASE("libcxx_members_set_all") {
 
 template <std::size_t N>
 void test_set_one() {
-    std::vector<nstd::bitset<N> > const cases = get_test_cases<N>();
+    std::vector<nstd::bitset<N>> const cases = get_test_cases<N>();
     for (std::size_t c = 0; c != cases.size(); ++c) {
         nstd::bitset<N> v = cases[c];
         if (v.size() > 0) {
@@ -611,12 +611,12 @@ TEST_CASE("libcxx_members_size") {
 
 template <std::size_t N>
 void test_test() {
-    std::vector<nstd::bitset<N> > const cases = get_test_cases<N>();
+    std::vector<nstd::bitset<N>> const cases = get_test_cases<N>();
     for (std::size_t c = 0; c != cases.size(); ++c) {
         nstd::bitset<N> const v = cases[c];
         if (v.size() > 0) {
             std::size_t middle = v.size() / 2;
-            bool b = v.test(middle);
+            bool b             = v.test(middle);
             CHECK(b == v[middle]);
         }
     }
@@ -648,15 +648,15 @@ void check_equal(std::basic_string<CharT> const& s, nstd::bitset<N> const& b, Ch
 
 template <std::size_t N>
 void test_to_string() {
-    std::vector<nstd::bitset<N> > const cases = get_test_cases<N>();
+    std::vector<nstd::bitset<N>> const cases = get_test_cases<N>();
     for (std::size_t c = 0; c != cases.size(); ++c) {
         nstd::bitset<N> const v = cases[c];
         {
-            std::wstring s = v.template to_string<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t> >();
+            std::wstring s = v.template to_string<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t>>();
             check_equal(s, v, L'0', L'1');
         }
         {
-            std::wstring s = v.template to_string<wchar_t, std::char_traits<wchar_t> >();
+            std::wstring s = v.template to_string<wchar_t, std::char_traits<wchar_t>>();
             check_equal(s, v, L'0', L'1');
         }
         {
@@ -668,11 +668,11 @@ void test_to_string() {
             check_equal(s, v, '0', '1');
         }
         {
-            std::wstring s = v.template to_string<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t> >('0');
+            std::wstring s = v.template to_string<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t>>('0');
             check_equal(s, v, L'0', L'1');
         }
         {
-            std::wstring s = v.template to_string<wchar_t, std::char_traits<wchar_t> >('0');
+            std::wstring s = v.template to_string<wchar_t, std::char_traits<wchar_t>>('0');
             check_equal(s, v, L'0', L'1');
         }
         {
@@ -684,11 +684,11 @@ void test_to_string() {
             check_equal(s, v, '0', '1');
         }
         {
-            std::wstring s = v.template to_string<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t> >('0', '1');
+            std::wstring s = v.template to_string<wchar_t, std::char_traits<wchar_t>, std::allocator<wchar_t>>('0', '1');
             check_equal(s, v, L'0', L'1');
         }
         {
-            std::wstring s = v.template to_string<wchar_t, std::char_traits<wchar_t> >('0', '1');
+            std::wstring s = v.template to_string<wchar_t, std::char_traits<wchar_t>>('0', '1');
             check_equal(s, v, L'0', L'1');
         }
         {
@@ -720,31 +720,29 @@ TEST_CASE("libcxx_members_to_string") {
 
 template <std::size_t N>
 void test_to_ullong() {
-    const std::size_t M = sizeof(unsigned long long) * CHAR_BIT < N ? sizeof(unsigned long long) * CHAR_BIT : N;
-    const bool is_M_zero = std::integral_constant<bool, M == 0>::value; // avoid compiler warnings
-    const std::size_t X = is_M_zero ? sizeof(unsigned long long) * CHAR_BIT - 1 : sizeof(unsigned long long) * CHAR_BIT - M;
+    const std::size_t M          = sizeof(unsigned long long) * CHAR_BIT < N ? sizeof(unsigned long long) * CHAR_BIT : N;
+    const bool is_M_zero         = std::integral_constant<bool, M == 0>::value;  // avoid compiler warnings
+    const std::size_t X          = is_M_zero ? sizeof(unsigned long long) * CHAR_BIT - 1 : sizeof(unsigned long long) * CHAR_BIT - M;
     const unsigned long long max = is_M_zero ? 0 : (unsigned long long)(-1) >> X;
-    unsigned long long tests[] = {
-        0,
-        std::min<unsigned long long>(1, max),
-        std::min<unsigned long long>(2, max),
-        std::min<unsigned long long>(3, max),
-        std::min(max, max-3),
-        std::min(max, max-2),
-        std::min(max, max-1),
-        max
-    };
-    for (std::size_t i = 0; i < sizeof(tests)/sizeof(tests[0]); ++i) {
+    unsigned long long tests[]   = {0,
+                                  std::min<unsigned long long>(1, max),
+                                  std::min<unsigned long long>(2, max),
+                                  std::min<unsigned long long>(3, max),
+                                  std::min(max, max - 3),
+                                  std::min(max, max - 2),
+                                  std::min(max, max - 1),
+                                  max};
+    for (std::size_t i = 0; i < sizeof(tests) / sizeof(tests[0]); ++i) {
         unsigned long long j = tests[i];
         nstd::bitset<N> v(j);
         CHECK(j == v.to_ullong());
     }
-    { // test values bigger than can fit into the bitset
-        const unsigned long long val = 0x55AAAAFFFFAAAA55ULL;
-        const bool canFit = N < sizeof(unsigned long long) * CHAR_BIT;
-        const unsigned long long mask = canFit ? (1ULL << (canFit ? N : 0)) - 1 : (unsigned long long)(-1); // avoid compiler warnings
+    {  // test values bigger than can fit into the bitset
+        const unsigned long long val  = 0x55AAAAFFFFAAAA55ULL;
+        const bool canFit             = N < sizeof(unsigned long long) * CHAR_BIT;
+        const unsigned long long mask = canFit ? (1ULL << (canFit ? N : 0)) - 1 : (unsigned long long)(-1);  // avoid compiler warnings
         nstd::bitset<N> v(val);
-        CHECK(v.to_ullong() == (val & mask)); // we shouldn't return bit patterns from outside the limits of the bitset.
+        CHECK(v.to_ullong() == (val & mask));  // we shouldn't return bit patterns from outside the limits of the bitset.
     }
 }
 
@@ -762,32 +760,30 @@ TEST_CASE("libcxx_members_to_ullong") {
 
 template <std::size_t N>
 void test_to_ulong() {
-    const std::size_t M = sizeof(unsigned long) * CHAR_BIT < N ? sizeof(unsigned long) * CHAR_BIT : N;
-    const bool is_M_zero = std::integral_constant<bool, M == 0>::value; // avoid compiler warnings
-    const std::size_t X = is_M_zero ? sizeof(unsigned long) * CHAR_BIT - 1 : sizeof(unsigned long) * CHAR_BIT - M;
+    const std::size_t M   = sizeof(unsigned long) * CHAR_BIT < N ? sizeof(unsigned long) * CHAR_BIT : N;
+    const bool is_M_zero  = std::integral_constant<bool, M == 0>::value;  // avoid compiler warnings
+    const std::size_t X   = is_M_zero ? sizeof(unsigned long) * CHAR_BIT - 1 : sizeof(unsigned long) * CHAR_BIT - M;
     const std::size_t max = is_M_zero ? 0 : std::size_t(std::numeric_limits<unsigned long>::max()) >> X;
-    std::size_t tests[] = {
-        0,
-        std::min<std::size_t>(1, max),
-        std::min<std::size_t>(2, max),
-        std::min<std::size_t>(3, max),
-        std::min(max, max-3),
-        std::min(max, max-2),
-        std::min(max, max-1),
-        max
-    };
-    for (std::size_t i = 0; i < sizeof(tests)/sizeof(tests[0]); ++i) {
+    std::size_t tests[]   = {0,
+                           std::min<std::size_t>(1, max),
+                           std::min<std::size_t>(2, max),
+                           std::min<std::size_t>(3, max),
+                           std::min(max, max - 3),
+                           std::min(max, max - 2),
+                           std::min(max, max - 1),
+                           max};
+    for (std::size_t i = 0; i < sizeof(tests) / sizeof(tests[0]); ++i) {
         std::size_t j = tests[i];
         nstd::bitset<N> v(j);
         CHECK(j == v.to_ulong());
     }
 
-    { // test values bigger than can fit into the bitset
-        const unsigned long val = 0x5AFFFFA5UL;
-        const bool canFit = N < sizeof(unsigned long) * CHAR_BIT;
-        const unsigned long mask = canFit ? (1UL << (canFit ? N : 0)) - 1 : (unsigned long)(-1); // avoid compiler warnings
+    {  // test values bigger than can fit into the bitset
+        const unsigned long val  = 0x5AFFFFA5UL;
+        const bool canFit        = N < sizeof(unsigned long) * CHAR_BIT;
+        const unsigned long mask = canFit ? (1UL << (canFit ? N : 0)) - 1 : (unsigned long)(-1);  // avoid compiler warnings
         nstd::bitset<N> v(val);
-        CHECK(v.to_ulong() == (val & mask)); // we shouldn't return bit patterns from outside the limits of the bitset.
+        CHECK(v.to_ulong() == (val & mask));  // we shouldn't return bit patterns from outside the limits of the bitset.
     }
 }
 

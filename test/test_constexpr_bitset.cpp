@@ -43,7 +43,8 @@ TEST_CASE("basic") {
 #else
         return nstd::bitset<5>("10101", 5);
 #endif  // __cpp_lib_constexpr_string
-    }();
+    }
+    ();
     constexpr nstd::bitset<5> x53(x52);
 
     static_assert(x50.to_ulong() == 0x00);
@@ -52,13 +53,13 @@ TEST_CASE("basic") {
     static_assert(x53.to_ulong() == 0x15);
 
     //// test arithmetic
-    static_assert([left = x50, right = x51]() mutable { return left |= right;}() == 0x0f);
-    static_assert([left = nstd::bitset<5>(0x0f), right = x52]() mutable { return left ^= right;}() == 0x1a);
-    static_assert([left = nstd::bitset<5>(0x1a), right = x51]() mutable { return left &= right;}() == 0x0a);
-    static_assert([left = nstd::bitset<5>(0x0a), right = 2]() mutable { return left <<= right;}() == 0x08);
-    static_assert([left = nstd::bitset<5>(0x08), right = 3]() mutable { return left >>= right;}() == 0x01);
+    static_assert([left = x50, right = x51]() mutable { return left |= right; }() == 0x0f);
+    static_assert([left = nstd::bitset<5>(0x0f), right = x52]() mutable { return left ^= right; }() == 0x1a);
+    static_assert([left = nstd::bitset<5>(0x1a), right = x51]() mutable { return left &= right; }() == 0x0a);
+    static_assert([left = nstd::bitset<5>(0x0a), right = 2]() mutable { return left <<= right; }() == 0x08);
+    static_assert([left = nstd::bitset<5>(0x08), right = 3]() mutable { return left >>= right; }() == 0x01);
     static_assert([left = nstd::bitset<5>(0x01)]() mutable { return left.set(2); }() == 0x05);
-    static_assert([left = nstd::bitset<5>(0x05)]() mutable { return left.set(0,0); }() == 0x04);
+    static_assert([left = nstd::bitset<5>(0x05)]() mutable { return left.set(0, 0); }() == 0x04);
     static_assert([left = nstd::bitset<5>(0x04)]() mutable { return left.set(); }() == 0x1f);
     static_assert([left = nstd::bitset<5>(0x1f)]() mutable { return left.reset(3); }() == 0x17);
     static_assert([left = nstd::bitset<5>(0x17)]() mutable { return left.reset(); }() == 0x00);

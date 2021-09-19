@@ -35,7 +35,7 @@
 
 template <std::size_t N>
 void test_op_and() {
-    std::vector<nstd::bitset<N> > const cases = get_test_cases<N>();
+    std::vector<nstd::bitset<N>> const cases = get_test_cases<N>();
     for (std::size_t c1 = 0; c1 != cases.size(); ++c1) {
         for (std::size_t c2 = 0; c2 != cases.size(); ++c2) {
             nstd::bitset<N> v1 = cases[c1];
@@ -60,7 +60,7 @@ TEST_CASE("libcxx_operators_and") {
 
 template <std::size_t N>
 void test_op_not() {
-    std::vector<nstd::bitset<N> > const cases = get_test_cases<N>();
+    std::vector<nstd::bitset<N>> const cases = get_test_cases<N>();
     for (std::size_t c1 = 0; c1 != cases.size(); ++c1) {
         for (std::size_t c2 = 0; c2 != cases.size(); ++c2) {
             nstd::bitset<N> v1 = cases[c1];
@@ -85,7 +85,7 @@ TEST_CASE("libcxx_operators_not") {
 
 template <std::size_t N>
 void test_op_or() {
-    std::vector<nstd::bitset<N> > const cases = get_test_cases<N>();
+    std::vector<nstd::bitset<N>> const cases = get_test_cases<N>();
     for (std::size_t c1 = 0; c1 != cases.size(); ++c1) {
         for (std::size_t c2 = 0; c2 != cases.size(); ++c2) {
             nstd::bitset<N> v1 = cases[c1];

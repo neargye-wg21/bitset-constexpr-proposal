@@ -20,11 +20,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE  OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+#include <algorithm>  // for 'min' and 'max'
 #include <array>
-#include <algorithm> // for 'min' and 'max'
 #include <cassert>
-#include <stdexcept> // for 'invalid_argument'
 #include <iterator>
+#include <stdexcept>  // for 'invalid_argument'
 
 #include <bitset.hpp>
 
@@ -36,15 +36,14 @@
 // https://github.com/llvm/llvm-project/tree/main/libcxx/test/std/utilities/template.bitset/bitset.cons
 
 template <std::size_t N>
-void test_char_pointer_ctor()
-{
+void test_char_pointer_ctor() {
     const char str[] = "1010101010";
     nstd::bitset<N> v(str);
     std::size_t M = std::min<std::size_t>(v.size(), 10);
     for (std::size_t i = 0; i < M; ++i)
-        assert(v[i] == (str[M - 1 - i] == '1'));
+        CHECK(v[i] == (str[M - 1 - i] == '1'));
     for (std::size_t i = 10; i < v.size(); ++i)
-        assert(v[i] == false);
+        CHECK(v[i] == false);
 }
 
 TEST_CASE("libcxx_cons_char_pointer") {
@@ -60,12 +59,11 @@ TEST_CASE("libcxx_cons_char_pointer") {
 }
 
 template <std::size_t N>
-void test_default_ctor()
-{
+void test_default_ctor() {
     nstd::bitset<N> v1;
-    assert(v1.size() == N);
+    CHECK(v1.size() == N);
     for (std::size_t i = 0; i < v1.size(); ++i)
-        assert(v1[i] == false);
+        CHECK(v1[i] == false);
 }
 
 TEST_CASE("libcxx_cons_default_ctor") {
@@ -87,18 +85,18 @@ void test_string_ctor() {
         nstd::bitset<N> v(s, 3, 10);
         std::size_t M = std::min<std::size_t>(v.size(), 10);
         for (std::size_t i = 0; i < M; ++i)
-            assert(v[i] == (s[3 + M - 1 - i] == '1'));
+            CHECK(v[i] == (s[3 + M - 1 - i] == '1'));
         for (std::size_t i = 10; i < v.size(); ++i)
-            assert(v[i] == false);
+            CHECK(v[i] == false);
     }
     {
         std::string s("xxxbababababaxxxx");
         nstd::bitset<N> v(s, 3, 10, 'a', 'b');
         std::size_t M = std::min<std::size_t>(v.size(), 10);
         for (std::size_t i = 0; i < M; ++i)
-            assert(v[i] == (s[3 + M - 1 - i] == 'b'));
+            CHECK(v[i] == (s[3 + M - 1 - i] == 'b'));
         for (std::size_t i = 10; i < v.size(); ++i)
-            assert(v[i] == false);
+            CHECK(v[i] == false);
     }
 }
 
@@ -115,15 +113,14 @@ TEST_CASE("libcxx_cons_string_ctor") {
 }
 
 template <std::size_t N>
-void test_val_ctor()
-{
+void test_val_ctor() {
     nstd::bitset<N> v(0xAAAAAAAAAAAAAAAAULL);
-    assert(v.size() == N);
+    CHECK(v.size() == N);
     std::size_t M = std::min<std::size_t>(v.size(), 64);
     for (std::size_t i = 0; i < M; ++i)
-        assert(v[i] == ((i & 1) != 0));
+        CHECK(v[i] == ((i & 1) != 0));
     for (std::size_t i = M; i < v.size(); ++i)
-        assert(v[i] == false);
+        CHECK(v[i] == false);
 }
 
 TEST_CASE("libcxx_cons_val_ctor") {
