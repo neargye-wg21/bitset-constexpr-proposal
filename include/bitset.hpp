@@ -252,7 +252,7 @@ class bitset {  // store fixed-length sequence of Boolean elements
 
     constexpr bitset& set() noexcept {  // set all bits true
         for (size_t _Wpos = 0; _Wpos <= _Words; ++_Wpos) {
-            _Array[_Wpos] = 0xFF;
+            _Array[_Wpos] = std::numeric_limits<_Ty>::max();
         }
         // std::memset(&_Array, 0xFF, sizeof(_Array));
 

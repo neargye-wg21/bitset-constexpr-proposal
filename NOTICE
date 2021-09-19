@@ -1,3 +1,7 @@
 This product includes Microsoft C++ Standard Library
 Copyright (c) Microsoft Corporation.
 The Microsoft C++ Standard Library is under the Apache License v2.0 with LLVM Exception
+
+This product includes parts of the LLVM Project
+Copyright (c) LLVM Project.
+The LLVM Project, under the Apache License v2.0 with LLVM Exceptions
